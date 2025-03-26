@@ -1,0 +1,9 @@
+filebeat.inputs:
+ - type: log
+   enabled: true
+   paths:
+     - /var/log/$MY_APP/*.log
+       tags: ["$MY_APP", "$ENV"]
+
+output.logstash:
+   hosts: ["es-logs-prod.matooma.com:5044"]

@@ -8,3 +8,5 @@ if "$ENV" in [tags] {
                         ecs_compatibility => disabled
                         ssl_certificate_verification => true
                 }
+        }
+}

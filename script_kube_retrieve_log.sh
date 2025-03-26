@@ -1,7 +1,7 @@
 # Exporting logs
 DATE=$(date +"%d-%m-%y")
-POD=$(kubectl --context=production --namespace "$NAMESPACE" get po |grep "$MY_APP" |awk '{print $1}')
-kubectl --namespace $NAMESPACE logs --since=1m $POD --context=production >> /var/log/$MY_APP-logs_$DATE.log
+POD=$(kubectl --context=$CONTEXT --namespace "$NAMESPACE" get po |grep "$MY_APP" |awk '{print $1}')
+kubectl --namespace $NAMESPACE logs --since=1m $POD --context=$CONTEXT >> /var/log/$MY_APP-logs_$DATE.log
 
 # Cleanup
 YESTERDAY_DATE=$(date --date=' 1 days ago' '+%d-%m-%y')
