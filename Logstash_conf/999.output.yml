@@ -1,0 +1,10 @@
+output {
+if "$ENV" in [tags] {
+                opensearch {
+                        hosts => ["https://$MY_SERVICE_ELK.amazonaws.com:443"]
+                        index => "index-%{component}.%{environment}-%{+yyyy.MM}"
+                        user => "$ELK_USER"
+                        password => "$ELK_PASSWORD"
+                        ecs_compatibility => disabled
+                        ssl_certificate_verification => true
+                }

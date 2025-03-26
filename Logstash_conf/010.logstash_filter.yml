@@ -1,0 +1,15 @@
+ filter {
+   if "$MY_APP" in [tags] {
+     grok {
+       add_field => { "environment" => "%{[tags][1]}" }
+       add_field => { "component" => "$MY_APP" }
+       }                                                                                                                 
+   } 
+   else if "ingress" in [tags] {
+      grok {       
+      match => { "message" => [                 
+                  "%{IPV4:source_ip}.*\[(?<day>[0-9]{2}).(?<month>[A-Z-a-z]{3}).(?<year>[0-9]{4}).%{TIME:time}.*\] \"%    {DATA:appel} %{URIPATHPARAM:url_path} HTTP\/...\" %{NUMBER:return_code}.*\[production-%{DATA:target_svc}-80",
+                  "%{IPV4:source_ip}.*\[(?<day>[0-9]{2}).(?<month>[A-Z-a-z]{3}).(?<year>[0-9]{4}).%{TIME:time}.*\] \"%    {DATA:appel} %{URIPATHPARAM:url_path} HTTP\/...\" %{NUMBER:return_code}.*",
+                  "%{DATESTAMP:date} %{GREEDYDATA:message}"
+                  ]
+            }
